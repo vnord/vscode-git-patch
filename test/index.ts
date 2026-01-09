@@ -10,13 +10,9 @@
 // to report the results back to the caller. When the tests are finished, return
 // a possible error to the callback or null if none.
 
-var testRunner = require('vscode/lib/testrunner');
+import * as testRunner from './suite/index';
 
-// You can directly control Mocha options by uncommenting the following lines
-// See https://github.com/mochajs/mocha/wiki/Using-mocha-programmatically#set-options for more info
-testRunner.configure({
-    ui: 'tdd', 		// the TDD UI is being used in extension.test.ts (suite, test, etc.)
-    useColors: true // colored output from test results
+testRunner.run().catch(err => {
+	console.error(err);
+	process.exit(1);
 });
-
-module.exports = testRunner;
