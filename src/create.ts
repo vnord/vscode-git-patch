@@ -17,7 +17,7 @@ export function createPatch(isStaged: boolean) {
             vscode.window.showErrorMessage(GP.ERROR_NO_FILE_NAME);
             return;
         }
-       
+
         if (isStaged) {
             cmd = `git diff --cached > ${pathObject.fsPath}`;
         }
@@ -37,4 +37,35 @@ export function createPatch(isStaged: boolean) {
     });
 
 
+}
+
+export function copyPatchToClipboard(isStaged: boolean) {
+    let cwd = vscode.workspace.rootPath;
+    let cmd;
+
+    if (isStaged) {
+        cmd = 'git diff --cached';
+    }
+    else {
+        cmd = 'git diff';
+    }
+
+    child_process.exec(cmd, {
+        cwd: cwd
+    }, async (error, stdout, stderr) => {
+        if (error) {
+            vscode.window.showErrorMessage(GP.FAILED_COPY_PATCH);
+        }
+        else if (stdout.trim() === '') {
+            vscode.window.showInformationMessage('No changes to copy to clipboard.');
+        }
+        else {
+            try {
+                await vscode.env.clipboard.writeText(stdout);
+                vscode.window.showInformationMessage(GP.SUCCESS_COPY_PATCH);
+            } catch (clipboardError) {
+                vscode.window.showErrorMessage(GP.FAILED_COPY_PATCH);
+            }
+        }
+    });
 }

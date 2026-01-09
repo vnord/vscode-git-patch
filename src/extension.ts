@@ -2,8 +2,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { createPatch } from './create';
-import { applyPatch } from './apply';
+import { createPatch, copyPatchToClipboard } from './create';
+import { applyPatch, applyPatchFromClipboard } from './apply';
 import { GP }  from './constants';
 
 // this method is called when your extension is activated
@@ -29,11 +29,26 @@ export function activate(context: vscode.ExtensionContext) {
     let disposableAP = vscode.commands.registerCommand('extension.gitApplyPatch', async () => {
         applyPatch();
     });
-    
+
+    let disposableCPC = vscode.commands.registerCommand('extension.gitCopyPatchToClipboardFromStaged', async () => {
+        copyPatchToClipboard(true);
+    });
+
+    let disposableCPCU = vscode.commands.registerCommand('extension.gitCopyPatchToClipboardFromUnstaged', async () => {
+        copyPatchToClipboard(false);
+    });
+
+    let disposableAPFC = vscode.commands.registerCommand('extension.gitApplyPatchFromClipboard', async () => {
+        await applyPatchFromClipboard();
+    });
+
 
     context.subscriptions.push(disposableCPS);
     context.subscriptions.push(disposableCPU);
     context.subscriptions.push(disposableAP);
+    context.subscriptions.push(disposableCPC);
+    context.subscriptions.push(disposableCPCU);
+    context.subscriptions.push(disposableAPFC);
 }
 
 // this method is called when your extension is deactivated
