@@ -1,12 +1,16 @@
 # Git Patch #
 
-> IDE's like Intellij provides a feature to *create* and *apply* a patch. This is an attempt to have the same feature available for VSCODE. 
+> IDE's like Intellij provides a feature to *create* and *apply* a patch. This is an attempt to have the same feature available for VSCODE.
 
-## [0.2.1] - 2018-02-10
+## [1.0.0] - 2026-01-09
 ### Added
-> * Provides a context menu under SCM & File Explorer.
+> * **Clipboard Support**: Copy patches to clipboard and apply patches from clipboard
+> * Updated to modern VSCode extension APIs and latest dependencies
+> * Improved TypeScript compilation and testing setup
 
-> * Removed extra layer of confirmation.
+### Changed
+> * Major dependency updates for better performance and compatibility
+> * Modernized extension structure with current VSCode development practices
 
 ## [0.2.0] - 2018-02-05
 ### Added
@@ -18,15 +22,19 @@
 
 ## Features
 
-> * Creates a GIT patch from `Staged` files on the fly.
+> * **File-based operations:**
+>   * Creates a GIT patch from `Staged` files on the fly.
+>   * Creates a GIT patch from `Unstaged` files on the fly.
+>   * `Apply` a patch by `selecting` a patch file on the fly.
 
-> * Creates a GIT patch from `Unstaged` files on the fly.
-
-> * `Apply` a patch by `selecting` a patch file on the fly.
+> * **Clipboard operations:**
+>   * Copy patch from `Staged` files to clipboard.
+>   * Copy patch from `Unstaged` files to clipboard.
+>   * Apply patch from clipboard content.
 
 ## How this works
 
-  ![Git create patch preview](https://raw.githubusercontent.com/paragdiwan/vscode-git-patch/master/images/vscode.gif)
+  ![Git create patch preview](https://raw.githubusercontent.com/vnord/vscode-git-patch/master/images/vscode.gif)
 
  
 
